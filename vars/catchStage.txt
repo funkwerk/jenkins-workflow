@@ -1,0 +1,1 @@
+Executes a stage, catches it's error and continues.

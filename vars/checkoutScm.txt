@@ -1,0 +1,1 @@
+Checks out from the source control management system

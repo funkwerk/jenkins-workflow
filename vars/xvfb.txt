@@ -1,0 +1,1 @@
+Wraps into an xvfb session.
