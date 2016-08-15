@@ -3,14 +3,16 @@ def call(Closure body) {
 }
 
 def call(String name, Closure body) {
-  timeStamped {
-    catchError {
-      try {
-        body()
-      } catch(error) {
-        errors.add name
+  ansiColor {
+    timeStamped {
+      catchError {
+        try {
+          body()
+        } catch(error) {
+          errors.add name
 
-        throw error
+          throw error
+        }
       }
     }
   }
