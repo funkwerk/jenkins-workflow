@@ -1,6 +1,16 @@
 // TODO: call with map...so that cc: foo@bar.de
 
 def call(name='') {
+  try {
+    developer {
+      if (currentBuild.result == null) {
+        currentBuild.result = 'SUCCESS'
+      }
+      notifyStash()
+    }
+  } catch (error) {
+    print "Notifying Stash failed: ${error}"
+  }
   if (currentBuild.result != 'FAILURE') {
     return
   }
