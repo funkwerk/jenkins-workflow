@@ -1,3 +1,4 @@
 def call(report) {
-  step([$class: 'JUnitResultArchiver', testResults: report])
+  print 'Please use reportJunit instead'
+  currentBuild.result = 'FAILURE'
 }
