@@ -28,4 +28,5 @@ developer {
 ## References
 
  - [pipeline-examples](https://github.com/jenkinsci/pipeline-examples)
+ - [Jenkins Pipeline Best Practices](https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md)
  - [CloudBees Top 10 Best Practices](https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin)
