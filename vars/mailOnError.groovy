@@ -31,8 +31,10 @@ def call(Map map) {
   body += currentBuild.description
   body += "\n\n"
   body += "Changesets:\n"
-  for (changeSet in currentBuild.changeSets) {
-    body += " - ${changeSet}\n"
+  for (changeSetList in currentBuild.changeSets) {
+    for (changeSet in changeSetList) {
+      body += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+    }
   }
   body += "\n"
   body += "Please go to ${env.BUILD_URL}.\n\n";
