@@ -1,0 +1,1 @@
+Marks the stage as 'UNSTABLE'. 'UNSTABLE' stands for the build passed with non fatal errors.
