@@ -1,6 +1,10 @@
-// TODO: call with map...so that cc: foo@bar.de
+def call(String cc='') {
+  mailOnError(cc: cc)
+}
 
-def call(name='') {
+def call(Map map) {
+  def cc = map.cc ? map.cc : ''
+
   try {
     developer {
       if (currentBuild.result == null) {
@@ -22,7 +26,7 @@ def call(name='') {
   stage 'failure'
 
   print "Culprits: ${to}\n\n"
-  
+
   def body = "Failing Stages:\n";
   body += currentBuild.description
   body += "\n\n"
@@ -39,7 +43,7 @@ def call(name='') {
 
   mail(
     to: to,
-    cc: name,
+    cc: cc,
     subject: "${env.JOB_NAME} - Build ${env.BUILD_NUMBER} Failed!",
     body: body)
 }
