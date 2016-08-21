@@ -11,7 +11,11 @@ def call(String name, Closure body) {
         } catch(error) {
           errors.add name
 
-          throw error
+          if (env.OPTIONAL_STAGE) {
+            currentBuild.result = 'UNSTABLE'
+          } else {
+            throw error
+          }
         }
       }
     }
