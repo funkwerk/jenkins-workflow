@@ -1,0 +1,1 @@
+Adds a NIGHTLY Parameter to the job, which allows to run more extensive tests at a nightly run.
