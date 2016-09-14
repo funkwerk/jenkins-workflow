@@ -30,29 +30,36 @@ def call(Map map) {
     [$class: 'DevelopersRecipientProvider'],
     [$class: 'RequesterRecipientProvider']])
 
-  stage 'failure'
+  stage('failure') {
+    print "Culprits: ${to}\n\n"
 
-  print "Culprits: ${to}\n\n"
-
-  def body = "Failing Stages:\n";
-  body += currentBuild.description
-  body += "\n\n"
-  body += "Changesets:\n"
-  for (changeSetList in currentBuild.changeSets) {
-    for (changeSet in changeSetList) {
-      body += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+    def body = "Failing Stages:\n";
+    body += currentBuild.description
+    body += "\n\n"
+    body += "Changesets:\n"
+    for (changeSetList in currentBuild.changeSets) {
+      for (changeSet in changeSetList) {
+        body += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+      }
     }
-  }
-  body += "\n"
-  body += "Please go to ${env.BUILD_URL}.\n\n";
-  body += "Culprits: ${to}\n\n"
-  for (cause in currentBuild.rawBuild.getCauses()) {
-    body += " - ${cause.getShortDescription()}\n"
-  }
+    body += "\n"
+    body += "Please go to ${env.BUILD_URL}.\n\n";
+    body += "Culprits: ${to}\n\n"
+    body += buildCauses()
 
-  mail(
-    to: to,
-    cc: cc,
-    subject: "${env.JOB_NAME} - Build ${env.BUILD_NUMBER} Failed!",
-    body: body)
+    mail(
+      to: to,
+      cc: cc,
+      subject: "${env.JOB_NAME} - Build ${env.BUILD_NUMBER} Failed!",
+      body: body)
+  }
+}
+
+@NonCPS
+def buildCauses() {
+    def text = ""
+    for (cause in currentBuild.rawBuild.getCauses()) {
+      text += " - ${cause.getShortDescription()}\n"
+    }
+    return text
 }
