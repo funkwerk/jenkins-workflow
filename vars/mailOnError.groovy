@@ -34,18 +34,10 @@ def call(Map map) {
     print "Culprits: ${to}\n\n"
 
     def body = "Failing Stages:\n";
-    body += currentBuild.description
-    body += "\n\n"
-    body += "Changesets:\n"
-    for (changeSetList in currentBuild.changeSets) {
-      for (changeSet in changeSetList) {
-        body += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
-      }
-    }
-    body += "\n"
+    body += currentBuild.description + "\n\n"
+    body += "Changesets:\n" + changeSets() + "\n"
     body += "Please go to ${env.BUILD_URL}.\n\n";
-    body += "Culprits: ${to}\n\n"
-    body += buildCauses()
+    body += "Culprits: ${to}\n\n" + buildCauses()
 
     mail(
       to: to,
@@ -53,6 +45,17 @@ def call(Map map) {
       subject: "${env.JOB_NAME} - Build ${env.BUILD_NUMBER} Failed!",
       body: body)
   }
+}
+
+@NonCPS
+def changeSets() {
+  def text = ""
+  for (changeSetList in currentBuild.changeSets) {
+    for (changeSet in changeSetList) {
+      text += " - ${changeSet.author.fullName} ${changeSet.msg} (${changeSet.commitId})\n"
+    }
+  }
+  return text
 }
 
 @NonCPS
