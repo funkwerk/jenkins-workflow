@@ -9,15 +9,10 @@ def call(Map map) {
     developer {
       if (currentBuild.result == null) {
         currentBuild.result = 'SUCCESS'
-        notifyStash()
-      } else if (currentBuild.result == 'UNSTABLE') {
+      } else if (currentBuild.result != 'UNSTABLE') {
         currentBuild.result = 'FAILED'
-        notifyStash()
-        currentBuild.result = 'UNSTABLE'
-      } else {
-        currentBuild.result = 'FAILED'
-        notifyStash()
-      }
+      } 
+      notifyStash()
     }
   } catch (error) {
     print "Notifying Stash failed: ${error}"
