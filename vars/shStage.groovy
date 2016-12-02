@@ -3,9 +3,3 @@ def call(command) {
     sh command
   }
 }
-
-def call(name, command) {
-  catchStage(name) {
-    sh command
-  }
-}
