@@ -1,8 +1,6 @@
 def call(list, closure) {
   variants = [:]
 
-  for (item in list) {
-    variants[item] = { closure(item) }
-  }
+  list.each{ item -> variants[item] = { closure(item) } }
   parallel variants
 }
