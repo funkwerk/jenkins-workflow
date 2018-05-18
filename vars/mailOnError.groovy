@@ -6,12 +6,12 @@ def call(Map map) {
   def cc = map.cc ? map.cc : ''
 
   try {
-    developer {
+    node('master') {
       if (currentBuild.result == null) {
         currentBuild.result = 'SUCCESS'
       } else if (currentBuild.result != 'UNSTABLE') {
         currentBuild.result = 'FAILED'
-      } 
+      }
       notifyStash()
     }
   } catch (error) {
