@@ -14,6 +14,7 @@ def call(String name, Closure body) {
           if (env.OPTIONAL_STAGE) {
             currentBuild.result = 'UNSTABLE'
           } else {
+            currentBuild.result = 'FAILURE'
             throw error
           }
         }
