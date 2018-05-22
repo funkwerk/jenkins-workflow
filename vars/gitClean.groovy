@@ -3,7 +3,7 @@ def call() {
     if (fileExists('.git')) {
       echo 'Found Git repository: using Git to clean the tree.'
       sh 'git reset --hard'
-      sh 'git clean -ffdx -e ".*/"'
+      sh 'git clean -ffdx'
       sh 'git submodule foreach --recursive git reset --hard'
       sh 'git submodule foreach --recursive git clean -ffdx'
     } else {
